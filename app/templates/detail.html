@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f5">
+  <meta name="description" content="AI IoT 스마트 항만물류 SW개발자 과정의 개요와 960시간 교육 일정을 확인하세요.">
+  <title>{{ course.title if course else '과정 상세' }} | {{ title }}</title>
+  <link rel="icon" href="{{ url_for('static', path='/favicon.ico') }}" type="image/x-icon">
+  <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+</head>
+<body class="detail-body">
+<header class="header"><div class="container nav-wrap">
+  <a class="brand" href="/" aria-label="처음으로"><span class="brand-mark">⚓</span><span><b>PKNU</b><small>ICT ACADEMY</small></span></a>
+  <nav class="nav detail-nav"><a href="/#courses">과정 소개</a><a href="/#industry">산업 이해</a><a class="nav-cta" href="/#schedule">메인으로 돌아가기 ↗</a></nav>
+</div></header>
+
+<main>
+  <section class="detail-hero"><div class="container detail-hero-inner">
+    <a href="/#schedule" class="detail-back">← <span>교육 일정으로 돌아가기</span></a>
+    <div class="eyebrow"><span class="pulse"></span> AI + IOT · SMART PORT LOGISTICS</div>
+    <h1>{{ course.title if course else 'AI IoT 스마트 항만물류 SW개발자' }}</h1>
+    <p>실제 항만의 데이터와 운영 흐름을 이해하고, 스마트 항만물류 소프트웨어를 설계·구현하는 실무 과정입니다.</p>
+    <div class="detail-stats"><div><b>{{ total_hours }}</b><span>총 교육시간</span></div><div><b>{{ total_days }}</b><span>훈련 일수</span></div><div><b>AI · IoT</b><span>핵심 기술 분야</span></div></div>
+  </div></section>
+
+  {% if overview %}<section class="detail-section detail-overview-section"><div class="container">
+    <div class="detail-section-heading"><div class="section-kicker"><span>01</span> COURSE OVERVIEW</div><h2>스마트 항만을 이해하는<br><span>기술과 활용 분야</span></h2></div>
+    <figure class="overview-figure detail-figure"><img src="{{ url_for('static', path='/smart-port-overview.svg') }}" alt="실제 항만과 디지털 트윈을 연결하는 데이터 흐름도"><figcaption>항만 현장의 데이터 수집부터 디지털 트윈 동기화, 분석 결과의 운영 반영까지</figcaption></figure>
+    <div class="detail-info-grid">
+      <article class="detail-info-card detail-info-wide"><span>CONCEPT</span><h3>개념</h3><p>{{ overview.concept }}</p></article>
+      <article class="detail-info-card"><span>APPLICATION</span><h3>적용 분야 및 활용</h3><p>{{ overview.applications }}</p></article>
+      <article class="detail-info-card"><span>DATA LINKAGE</span><h3>항만 데이터 연계체계</h3><p>{{ overview.data_linkage }}</p></article>
+      <article class="detail-info-card"><span>PRACTICE</span><h3>실습 및 활용 효과</h3><p>{{ overview.practical_value }}</p></article>
+      <article class="detail-info-card"><span>TECHNOLOGY</span><h3>활용 기술 및 도구</h3><p>{{ overview.technologies }}</p></article>
+    </div>
+  </div></section>{% endif %}
+
+  <section class="detail-section detail-schedule-section"><div class="container">
+    <div class="detail-section-heading"><div class="section-kicker"><span>02</span> 960-HOUR CURRICULUM</div><h2>기초부터 최종 프로젝트까지<br><span>전체 교육 시간표</span></h2><p>{{ training_start.strftime('%Y.%m.%d') if training_start else '' }} – {{ training_end.strftime('%Y.%m.%d') if training_end else '' }} · {{ total_days }}일 · 8교시 편성</p></div>
+    <div class="training-summary"><span>엑셀 훈련시간표 기준</span><strong>{{ total_hours }}<small>시간</small></strong><span>{{ total_days }}일의 날짜별 · 교시별 일정</span></div>
+    <div class="assessment-legend"><span class="assessment-swatch"></span> 코딩 테스트 · 프로젝트 발표 평가</div>
+    <div class="month-list">{% for month in month_groups %}<details class="month-group" {% if loop.first %}open{% endif %}><summary><span><b>{{ month.label }}</b><small>{{ month.days|length }}일</small></span><strong>{{ month.hours }}<small>시간</small></strong></summary><div class="month-days">{% for item in month.days %}{% set day = item.day %}<article class="training-day"><header class="training-day-head"><div><span class="training-day-number">{{ '%03d'|format(day.day_number) }}일차</span><time>{{ day.training_date.strftime('%Y.%m.%d') }} · {{ day.weekday }}요일</time></div><div class="day-hour-total"><b>{{ day.daily_hours }}시간</b><small>누적 {{ day.cumulative_hours }} / {{ total_hours }}시간</small></div></header><div class="period-grid-wrap"><div class="period-grid">{% for period in item.periods %}<article class="period-block{% if '코딩 테스트' in period.subject or '프로젝트 발표' in period.subject %} period-assessment{% endif %}"><span class="period-time">{{ period.number }}교시<small>{{ period.start_time }}–{{ period.end_time }}</small></span><strong>{{ period.subject }}</strong>{% if '코딩 테스트' in period.subject or '프로젝트 발표' in period.subject %}<span class="assessment-chip">평가</span>{% endif %}</article>{% endfor %}</div></div><details class="day-more"><summary>훈련 내용 · 강사 · 장소 보기 <span>＋</span></summary><div class="day-more-content"><table><thead><tr><th>교시</th><th>훈련 내용</th><th>강사</th><th>훈련 장소</th></tr></thead><tbody>{% for period in item.periods %}<tr{% if '코딩 테스트' in period.subject or '프로젝트 발표' in period.subject %} class="assessment-row"{% endif %}><td>{{ period.number }}교시</td><td>{{ period.content }}</td><td>{{ period.instructor }}</td><td>{{ period.location }}</td></tr>{% endfor %}</tbody></table></div></details></article>{% endfor %}</div></details>{% endfor %}</div>
+    <p class="detail-schedule-note"><span>ⓘ</span> 코딩 테스트 시간은 과목별 총 교육시간에 포함되어 있으며, 전체 과정은 960시간으로 유지됩니다.</p>
+    <a class="detail-bottom-link" href="/#schedule">← 메인 페이지로 돌아가기</a>
+  </div></section>
+</main>
+
+<footer class="footer"><div class="container footer-main"><a class="brand" href="/"><span class="brand-mark">⚓</span><span><b>PKNU</b><small>ICT ACADEMY</small></span></a><p>부경대학교 지역산업맞춤사업단<br>산업과 기술을 연결하는 ICT 실무 교육</p><div class="footer-links"><a href="/#courses">과정 소개</a><a href="/#schedule">교육 일정</a><a href="/#industry">산업 이해</a></div><span class="copyright">© 2025 PKNU ICT ACADEMY</span></div></footer>
+</body></html>

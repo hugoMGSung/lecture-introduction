@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f5">
+  <meta name="description" content="{{ industry.description }}">
+  <title>{{ industry.title }} | {{ title }}</title>
+  <link rel="icon" href="{{ url_for('static', path='/favicon.ico') }}" type="image/x-icon">
+  <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+</head>
+<body class="industry-detail-body">
+<header class="header"><div class="container nav-wrap">
+  <a class="brand" href="/" aria-label="처음으로"><span class="brand-mark">⚓</span><span><b>PKNU</b><small>ICT ACADEMY</small></span></a>
+  <nav class="nav detail-nav"><a href="/#courses">과정 소개</a><a href="/#industry">산업 이해</a><a class="nav-cta" href="/#industry">메인으로 돌아가기 ↗</a></nav>
+</div></header>
+<main>
+  <section class="industry-detail-hero"><div class="container industry-detail-hero-inner">
+    <a href="/#industry" class="industry-breadcrumb">← 산업 이해로 돌아가기</a>
+    <div class="industry-detail-eyebrow"><span class="pulse"></span>{{ industry.english_title }} · INDUSTRY DOMAIN</div>
+    <div class="industry-detail-title-row"><span class="industry-detail-icon">{{ industry.icon }}</span><h1>{{ industry.title }}</h1></div>
+    <p>{{ industry.description }}</p>
+  </div></section>
+  <section class="industry-process-section"><div class="container">
+    <div class="section-kicker"><span>01</span> DOMAIN PROCESS</div>
+    <div class="industry-process-heading"><div><h2>도메인 프로세스</h2><p>{{ industry.title }}의 주요 흐름을 담을 공간입니다.</p></div><span class="process-status">PROCESS AREA</span></div>
+    <div class="industry-process-placeholder"><div class="process-placeholder-top"><span>{{ industry.english_title }}</span><span>CONTENT TO BE ADDED</span></div><div class="process-placeholder-center"><span class="process-placeholder-icon">⌘</span><strong>도메인 프로세스를 준비하고 있습니다.</strong><p>이 영역에 {{ industry.title }}의 단계별 흐름을 추가할 수 있습니다.</p></div><div class="process-placeholder-bottom"><span>DOMAIN FLOW</span><span>PKNU ICT ACADEMY</span></div></div>
+    <a class="industry-back-button" href="/#industry">← 산업 이해 메뉴로</a>
+  </div></section>
+</main>
+<footer class="footer"><div class="container footer-main"><a class="brand" href="/"><span class="brand-mark">⚓</span><span><b>PKNU</b><small>ICT ACADEMY</small></span></a><p>부경대학교 지역산업맞춤사업단<br>산업과 기술을 연결하는 ICT 실무 교육</p><div class="footer-links"><a href="/#courses">과정 소개</a><a href="/#schedule">교육 일정</a><a href="/#industry">산업 이해</a></div><span class="copyright">© 2025 PKNU ICT ACADEMY</span></div></footer>
+</body>
+</html>
